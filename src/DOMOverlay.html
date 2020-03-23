@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>DOMOverlay</title>
+	<meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<script src='../js/debug_api.js'></script>
+	<style>
+		* {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		#mapContainer {
+			width: 100vw;
+			height: 100vh;
+		}
+	</style>
+</head>
+
+<body>
+	<div id='mapContainer'></div>
+	<script>
+		// 定义文本显示框类
+		function TextBox(options) {
+			TMap.DOMOverlay.call(this, options);
+		}
+
+		TextBox.prototype = new TMap.DOMOverlay();
+
+		TextBox.prototype.onInit = function(options) {
+			this.content = options.content;
+			this.position = options.position;
+		};
+
+		TextBox.prototype.createDOM = function() {
+			let dom = document.createElement('div');
+			dom.innerText = this.content;
+			dom.style.cssText = [
+				'position:absolute;',
+				'border: 2px solid black;',
+    			'padding: 5px;'
+			].join(' ');
+			return dom;
+		};
+
+		TextBox.prototype.updateDOM = function() {
+			if (!this.map) {
+				return;
+			}
+
+			// 经纬度坐标转容器像素坐标
+			let pixel = this.map.projectToContainer(this.position);
+
+			// 使文本框中心点对齐经纬度坐标点
+			let left = pixel.getX() - this.dom.clientWidth / 2 + 'px';
+			let top = pixel.getY() - this.dom.clientHeight / 2 + 'px';
+			this.dom.style.transform = `translate3d(${left}, ${top}, 0px)`;
+
+			this.emit('dom_updated');
+		};
+
+		window.TextBox = TextBox;
+
+		var t = new TextBox({
+					map,
+					position: new TMap.LatLng(lat, lng),
+					content: index
+		});
+		let handle = () => console.log('元素内容被更新了');
+		t.on('dom_updated', handle);
+		setTimeout(() => {
+			t.off('dom_updated', handle);
+		}, 1000);
+	</script>
+	<script>
+		window.onload = init;
+
+		var map, textBoxList = [];
+
+		function init() {
+			map = new TMap.Map('mapContainer', {
+				zoom: 10,
+				pitch: 30,
+				rotation: 10,
+				center: new TMap.LatLng(39.910690,116.397369)
+			});
+
+			let center = map.getCenter();
+			for (let index = 0; index < 100; index++) {
+				let lat = center.getLat() + Math.random() - 0.5;
+				let lng = center.getLng() + Math.random() - 0.5;
+				textBoxList.push(new TextBox({
+					map,
+					position: new TMap.LatLng(lat, lng),
+					content: index
+				}));
+			}
+		}
+	</script>
+</body>
+
+</html>
