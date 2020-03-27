@@ -2,18 +2,18 @@ import TMap from 'TMap';
 import eventBus from '@/utils/eventBus';
 /* eslint-disable */
 // 定义文本显示框类
-export default function TextBox(options) {
+export default function CustomInfoWindow(options) {
   TMap.DOMOverlay.call(this, options);
 }
 
-TextBox.prototype = new TMap.DOMOverlay();
+CustomInfoWindow.prototype = new TMap.DOMOverlay();
 // eslint-disable-next-line
-TextBox.prototype.onInit = function (options) {
+CustomInfoWindow.prototype.onInit = function (options) {
   this.content = options.content;
   this.position = options.position;
 };
 // eslint-disable-next-line
-TextBox.prototype.createDOM = function () {
+CustomInfoWindow.prototype.createDOM = function () {
   const dom = document.createElement('div');
   // dom.innerText = this.content;
   const btn = '<button id="start-btn">起点</button>';
@@ -25,13 +25,18 @@ TextBox.prototype.createDOM = function () {
   console.log(handleClicked, '<---this.handleClicked');
   dom.style.cssText = [
     'position:absolute;',
-    'border: 2px solid red;',
-    'padding: 5px;'
+    'padding: 20px;',
+    'background: rgba(37,41,59,0.94);',
+    'border: 1px solid #373D58;',
+    'font-family: NotoSansCJKsc-Medium;',
+    'font-size: 14px;',
+    'color: #FFFFFF;',
+    'line-height: 18px;'
   ].join(' ');
   return dom;
 };
 
-TextBox.prototype.updateDOM = function() {
+CustomInfoWindow.prototype.updateDOM = function() {
   if (!this.map) {
     return;
   }
