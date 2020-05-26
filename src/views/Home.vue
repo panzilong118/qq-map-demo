@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App111"/>
-    <el-button>默认按钮</el-button>
+    <!-- <el-button>默认按钮</el-button> -->
     <div class="block-1">
 
     </div>
@@ -25,7 +25,6 @@ export default {
   methods: {
     async initStatistic() {
       this.data = await getohStatistic({});
-      console.log(this.data, '<---this.data');
     },
     testLog() {
       this.$log.info('this.$loginfo');

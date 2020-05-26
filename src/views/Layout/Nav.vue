@@ -63,17 +63,17 @@ export default {
   watch: {
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    selectMenu(index, indexPath) {
-      console.log(index, indexPath);
-      console.log(indexPath, '<---indexPath');
-      this.$router.push(`${index}`);
-    }
+    // handleOpen(key, keyPath) {
+    //   console.log(key, keyPath);
+    // },
+    // handleClose(key, keyPath) {
+    //   console.log(key, keyPath);
+    // },
+    // selectMenu(index, indexPath) {
+    //   console.log(index, indexPath);
+    //   console.log(indexPath, '<---indexPath');
+    //   this.$router.push(`${index}`);
+    // }
   }
 };
 </script>

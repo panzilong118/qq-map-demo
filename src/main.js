@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import ElementUI from 'element-ui';
+// import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
 import Logger from '@/plugins/logger';
@@ -9,7 +9,7 @@ import store from './store';
 
 Vue.config.productionTip = false;
 Vue.use(Logger, { debug: process.env.NODE !== 'production' });
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
 Vue.$log.info('vue-eslint launch...');
 
 new Vue({

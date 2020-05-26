@@ -7,9 +7,11 @@
 </template>
 
 <script>
+/* eslint-disable */
 import TMap from 'TMap';
 import TextBox from './textBox';
-import eventBus from '@/utils/eventBus';
+import html2canvas from 'html2canvas';
+// import eventBus from '@/utils/eventBus';
 
 export default {
   data() {
@@ -17,13 +19,14 @@ export default {
     };
   },
   created() {
-    eventBus.$on('hello', (data) => {
-      console.log(data, '<---data');
-    });
+    // eventBus.$on('hello', (data) => {
+    //   console.log(data, '<---data');
+    // });
   },
   mounted() {
     this.$nextTick(() => {
       this.initMap();
+      this.tests();
     });
   },
   methods: {
@@ -35,6 +38,12 @@ export default {
         zoom: 12
       });
       this.initTextBox();
+    },
+    tests() {
+      html2canvas(document.body).then(function(canvas) {
+        console.log(canvas, '<---canvas');
+        document.body.appendChild(canvas);
+      });
     },
     initTextBox() {
       const infoWindowContent = `

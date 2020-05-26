@@ -2,7 +2,7 @@
   <div class="container">
     <info-header></info-header>
     <div class="content-container">
-      <info-nav></info-nav>
+      <!-- <info-nav></info-nav> -->
       <div class="main-box">
         <router-view></router-view>
         <info-footer></info-footer>
@@ -13,14 +13,14 @@
 
 <script>
 import InfoHeader from './Header.vue';
-import InfoNav from './Nav.vue';
+// import InfoNav from './Nav.vue';
 import InfoFooter from './Footer.vue';
 
 export default {
   name: 'app',
   components: {
     InfoHeader,
-    InfoNav,
+    // InfoNav,
     InfoFooter
   },
 };
