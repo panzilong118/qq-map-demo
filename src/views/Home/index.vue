@@ -12,6 +12,7 @@ import TMap from 'TMap';
 import TextBox from './textBox';
 import html2canvas from 'html2canvas';
 // import eventBus from '@/utils/eventBus';
+import { circle } from '@turf/turf';
 
 export default {
   data() {
@@ -27,6 +28,7 @@ export default {
     this.$nextTick(() => {
       this.initMap();
       this.tests();
+      this.turf();
     });
   },
   methods: {
@@ -38,6 +40,13 @@ export default {
         zoom: 12
       });
       this.initTextBox();
+    },
+    turf() {
+      var center = [-75.343, 39.984];
+      var radius = 5;
+      var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
+      var circleResult = circle(center, radius, options);
+      console.log(circleResult, '<---circleResult');
     },
     tests() {
       html2canvas(document.body).then(function(canvas) {
