@@ -13,6 +13,7 @@ import TextBox from './textBox';
 import html2canvas from 'html2canvas';
 // import eventBus from '@/utils/eventBus';
 import { circle } from '@turf/turf';
+import { dotData } from '@/mocks/rt_city_loc';
 
 export default {
   data() {
@@ -27,8 +28,9 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.initMap();
-      this.tests();
-      this.turf();
+      // this.tests();
+      // this.turf();
+      this.initDot();
     });
   },
   methods: {
@@ -37,16 +39,31 @@ export default {
       this.map = new TMap.Map('map', {
         center: new TMap.LatLng(39.916527, 116.397128),
         pitch: 0,
+        mapStyleId: 'style2',
         zoom: 12
       });
-      this.initTextBox();
+      // this.initTextBox();
+    },
+    initDot() {
+      //初始化散点图并添加至map图层
+      new TMap.visualization.Dot({
+          faceTo: "screen",//散点固定的朝向
+          styles: {
+              redCircle: {  // 定义一个红色圆形样式
+                  type: 'circle',
+                  fillColor: '#FF0000',
+              }
+          }
+      })
+      .addTo(this.map)
+      .setData(dotData);//设置数据
     },
     turf() {
-      var center = [-75.343, 39.984];
-      var radius = 5;
+      var center = [116.353025, 39.945016];
+      var radius = 0.5;
       var options = {steps: 10, units: 'kilometers', properties: {foo: 'bar'}};
       var circleResult = circle(center, radius, options);
-      console.log(circleResult, '<---circleResult');
+      console.log(JSON.stringify(circleResult), '<---circleResult');
     },
     tests() {
       html2canvas(document.body).then(function(canvas) {
