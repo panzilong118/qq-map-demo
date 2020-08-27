@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>This is an home page</h1>
     <div id="map"></div>
   </div>
 
@@ -28,9 +27,10 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.initMap();
+      this.initArc();
       // this.tests();
       // this.turf();
-      this.initDot();
+      // this.initDot();
     });
   },
   methods: {
@@ -43,6 +43,38 @@ export default {
         zoom: 12
       });
       // this.initTextBox();
+    },
+    initArc() {
+      // 创建弧线图
+      var arc = new TMap.visualization.Arc({
+          pickStyle: function(arcLine) { // 样式映射函数
+              var red = {
+                  color: '#DD0000',
+                  animateColor:'#FF0000'
+              };
+              var blue = {
+                  color: '#0000DD',
+                  animateColor: '#FF0000'
+              };
+              return arcLine.id == 'red' ? red : blue;
+          },
+          mode: 'horizontal',
+          animatable: true,
+      }).addTo(this.map); // 通过addTo()添加到指定地图实例
+
+      // 设置数据，若需要更新数据则再次调用setData方法即可
+      arc.setData([
+          {
+              id: 'red',
+              from: { lat: 40.040934, lng: 116.272677 }, // 弧线起点
+              to: { lat: 38.040934, lng: 116.272677 }  // 弧线终点
+          },
+          {
+              id: 'blue',
+              from: { lat: 38.040934, lng: 116.272677 },
+              to: { lat: 40.040934, lng: 116.272677 }
+          }
+      ]);
     },
     initDot() {
       //初始化散点图并添加至map图层
