@@ -13,6 +13,7 @@ import html2canvas from 'html2canvas';
 // import eventBus from '@/utils/eventBus';
 import { circle } from '@turf/turf';
 import { dotData } from '@/mocks/rt_city_loc';
+import { getRegionListD } from '@/mocks/getRegionList';
 
 export default {
   data() {
@@ -28,6 +29,7 @@ export default {
     this.$nextTick(() => {
       this.initMap();
       this.initArc();
+      this.initPolygon();
       // this.tests();
       // this.turf();
       // this.initDot();
@@ -43,6 +45,35 @@ export default {
         zoom: 12
       });
       // this.initTextBox();
+    },
+    initPolygon() {
+      console.log(getRegionListD, '<----getRegionListD');
+      const geometries = getRegionListD.map((item, idx) => {
+        const arrPoi = item.polygon.split(';');
+        const path = arrPoi.map((i) => {
+          const poi = i.split(',');
+          return new TMap.LatLng(poi[0], poi[1]);
+        });
+        const obj = {
+          id: `p_${idx}`,
+          styleId: 'polygon',
+          paths: path
+        };
+        return obj;
+      });
+      //初始化polygon
+      var polygon = new TMap.MultiPolygon({
+          id: 'polygon-layer', //图层id
+          map: this.map, //显示多边形图层的底图
+          styles: { //多边形的相关样式
+              'polygon': new TMap.PolygonStyle({
+                  'color': '#3777FF', //面填充色
+                  'showBorder':false, //是否显示拔起面的边线
+                  'borderColor': '#00FFFF' //边线颜色
+              })
+          },
+          geometries
+        });
     },
     initArc() {
       // 创建弧线图
