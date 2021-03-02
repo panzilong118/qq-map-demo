@@ -13,6 +13,7 @@ Vue.use(Logger, { debug: process.env.NODE !== 'production' });
 Vue.use(JsonSchemaEditor);
 Vue.use(ElementUI);
 Vue.$log.info('vue-eslint launch...');
+Vue.component('JsonSchemaEditor', JsonSchemaEditor);
 
 new Vue({
   router,
