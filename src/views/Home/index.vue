@@ -11,7 +11,7 @@ import TMap from 'TMap';
 import TextBox from './textBox';
 import html2canvas from 'html2canvas';
 // import eventBus from '@/utils/eventBus';
-import { circle } from '@turf/turf';
+// import { circle } from '@turf/turf';
 import { dotData } from '@/mocks/rt_city_loc';
 import { getRegionListD } from '@/mocks/getRegionList';
 import { shoudujichangD } from '@/mocks/shoudujichang';
