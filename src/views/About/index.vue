@@ -1,18 +1,12 @@
 <template>
   <div>
-    <el-row>
-      <el-col :span="6">
-        test
-      </el-col>
-      <el-col :span="18">
-        <s-json-schema-editor
-          :key="schemaKey"
-          :schema.sync="schema1"
-          :show-default-value="true"
-          :is-mock="false"
-          @schema-change="onSchemaChange">
-      </s-json-schema-editor></el-col>
-    </el-row>
+    <s-json-schema-editor
+      :key="schemaKey"
+      :schema.sync="schema1"
+      :show-default-value="true"
+      :is-mock="false"
+      @schema-change="onSchemaChange">
+    </s-json-schema-editor>
   </div>
 </template>
 
