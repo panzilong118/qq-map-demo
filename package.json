@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.19.1",
     "core-js": "^3.4.4",
+    "cfbgcPermissions": "^1.0.2",
     "element-ui": "^2.13.0",
     "html2canvas": "^1.0.0-rc.5",
     "sass": "^1.29.0",
